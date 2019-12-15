@@ -1,0 +1,50 @@
+* {
+  font-family: sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: rgb(211, 211, 211);
+}
+
+body {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 7px;
+}
+
+.app {
+  background: rgb(49, 125, 69);
+  width: 100%;
+}
+
+.header {
+  height: 70px;
+  padding: 15px;
+  margin: 0 auto;
+  background: rgb(32, 32, 32);
+  color: #fff;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+#events-select {
+  background: rgb(32, 32, 32);
+  color: #fff;
+  margin: 0 10px 15px 10px;
+  padding: 3px;
+  height: 52px;
+  width: 230px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.events-list-letter-divider {
+  background: rgb(61, 153, 85);
+  color: #ddd;
+  font-size: 16;
+  font-weight: 700;
+}
