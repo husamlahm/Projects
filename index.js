@@ -1,8 +1,8 @@
-function main() {
-  const createElement = elName => document.createElement(elName);
-  const selectTagEvents = document.querySelector("#events-select");
+const createElement = elName => document.createElement(elName);
+const selectTagEvents = document.querySelector("#events-select");
 
-  const windowEvents = Object.keys(window)
+function getEventsFor(domElement) {
+  return Object.keys(domElement)
     .reduce((acc, cur) => {
       if (cur.toString().startsWith("on")) {
         acc.push(cur.replace("on", ""));
@@ -11,16 +11,17 @@ function main() {
       return acc;
     }, [])
     .sort();
+}
+
+function main() {
+  const windowEvents = getEventsFor(window);
 
   windowEvents.forEach((eventName, i) => {
     const currentFirstLetter = eventName.charAt(0);
+    const option = createElement("option");
+    const divider = createElement("option");
     const lastFirstLetter =
       windowEvents[i - 1] && windowEvents[i - 1].charAt(0);
-
-    const option = createElement("option");
-    option.setAttribute("value", eventName);
-
-    const divider = createElement("option");
 
     if (
       (lastFirstLetter && currentFirstLetter !== lastFirstLetter) ||
@@ -32,6 +33,7 @@ function main() {
       selectTagEvents.appendChild(divider);
     }
 
+    option.setAttribute("value", eventName);
     option.innerText = eventName;
     selectTagEvents.appendChild(option);
   });
@@ -73,3 +75,21 @@ function main() {
 }
 
 main();
+
+(() => {
+  const app = document.querySelector(".app");
+  const getAppBoundaries = () => app.getClientRects()[0];
+  const appBoundaries = getAppBoundaries();
+
+  document.addEventListener("click", e => {
+    if (e.target === selectTagEvents || e.clientY < appBoundaries.height) {
+      return;
+    }
+
+    app.style.height = `${e.clientY - 5}px`;
+
+    setTimeout(() => {
+      app.style.height = `${appBoundaries.height}px`;
+    }, 1000);
+  });
+})();
